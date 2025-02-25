@@ -11,36 +11,50 @@
 
     <h1>PDF Preview Options</h1>
 
-
-
     <!-- 3. Using PDF.js (JavaScript Library) -->
     <h2>PDF.js Viewer</h2>
-    <canvas id="pdf-canvas"></canvas>
+    <canvas id="pdf-canvas-1"></canvas>
+    <canvas id="pdf-canvas-2"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
     <script>
-        const url = 'hs.pdf';
+        const url = 'hs.pdf'; // Your PDF file path
 
         // Initialize PDF.js
         pdfjsLib.getDocument(url).promise.then(function (pdf) {
+            // Render the first page
             pdf.getPage(1).then(function (page) {
-                const canvas = document.getElementById('pdf-canvas');
-                const context = canvas.getContext('2d');
-                const viewport = page.getViewport({ scale: 1.5 });
+                const canvas1 = document.getElementById('pdf-canvas-1');
+                const context1 = canvas1.getContext('2d');
+                const viewport1 = page.getViewport({ scale: 1.5 });
 
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+                canvas1.height = viewport1.height;
+                canvas1.width = viewport1.width;
 
-                // Render the page
+                // Render the first page
                 page.render({
-                    canvasContext: context,
-                    viewport: viewport
+                    canvasContext: context1,
+                    viewport: viewport1
+                });
+            });
+
+            // Render the second page
+            pdf.getPage(2).then(function (page) {
+                const canvas2 = document.getElementById('pdf-canvas-2');
+                const context2 = canvas2.getContext('2d');
+                const viewport2 = page.getViewport({ scale: 1.5 });
+
+                canvas2.height = viewport2.height;
+                canvas2.width = viewport2.width;
+
+                // Render the second page
+                page.render({
+                    canvasContext: context2,
+                    viewport: viewport2
                 });
             });
         });
     </script>
-
-
 
 </body>
 
